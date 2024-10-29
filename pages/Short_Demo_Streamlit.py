@@ -178,3 +178,11 @@ df = pd.DataFrame(
                     columns=['lat', 'lon']
                 )
 st.map(df)
+
+st.header("Pour aller plus loin")
+
+st.write("Vous pouvez consulter ce projet d'application streamlit qui présente toutes les possibilités de streamlit de manière interactive :")
+st.write("https://cheat-sheets.streamlit.app/")
+st.write("")
+st.write("Ainsi que la documentation officielle de streamlit :")
+st.write("https://docs.streamlit.io/")
