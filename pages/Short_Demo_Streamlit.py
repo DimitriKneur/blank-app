@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import requests
+import numpy as np
+import altair as alt
 
 st.header("Afficher du texte")
 
@@ -27,6 +29,28 @@ code = '''
 def hello():
     print("Hello, Streamlit!")'''
 st.code(code, language='python')
+
+st.header("Inputs")
+
+st.write("Text input")
+
+codetextinput = '''
+title = st.text_input('Movie title', 'Life of Brian')
+st.write('The current movie title is', title)'''
+st.code(codetextinput, language='python')
+
+title = st.text_input('Movie title', 'Life of Brian')
+st.write('The current movie title is', title)
+
+st.write("Number input")
+
+codenumberinput = '''
+number = st.number_input('Insert a number')
+st.write('The current number is ', number)'''
+st.code(codenumberinput, language='python')
+
+number = st.number_input('Insert a number')
+st.write('The current number is ', number)
 
 st.header("Afficher une image")
 
@@ -89,3 +113,68 @@ api_url = f"https://swapi.dev/api/people/1/"
 response = requests.get(api_url)
 data = response.json()
 st.json(data)
+
+st.header("Charts et graphiques")
+
+st.write("Line chart")
+
+codelinechart = '''
+import numpy as np
+
+line_chart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=["a", "b", "c"]
+)
+
+st.line_chart(line_chart_data)'''
+st.code(codelinechart, language='python')
+
+line_chart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=["a", "b", "c"]
+)
+
+st.line_chart(line_chart_data)
+
+st.write("Scatter chart (librairie Altair)")
+
+codescatterchart = '''
+import altair as alt
+
+alt_chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+
+c = (
+    alt.Chart(alt_chart_data)
+    .mark_circle()
+    .encode(x="a", y="b", size="c", color="c", tooltip=["a", "b", "c"])
+    )
+
+st.altair_chart(c, use_container_width=True)
+'''
+st.code(codescatterchart, language='python')
+
+alt_chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+
+c = (
+    alt.Chart(alt_chart_data)
+    .mark_circle()
+    .encode(x="a", y="b", size="c", color="c", tooltip=["a", "b", "c"])
+    )
+
+st.altair_chart(c, use_container_width=True)
+
+st.write("Map")
+
+codemap = '''
+df = pd.DataFrame(
+                    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+                    columns=['lat', 'lon']
+                )
+st.map(df)'''
+st.code(codemap, language='python')
+
+df = pd.DataFrame(
+                    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+                    columns=['lat', 'lon']
+                )
+st.map(df)
